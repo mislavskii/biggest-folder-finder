@@ -1,24 +1,30 @@
 import java.io.File;
 import java.util.Set;
+import java.util.concurrent.ForkJoinPool;
 
 public class Main {
     public static void main(String[] args){
 
         System.out.println("Hello world of sizes!\n");
 
-        MyThread thread = new MyThread(1);
-        MyThread thread2 = new MyThread(2);
+//        MyThread thread = new MyThread(1);
+//        MyThread thread2 = new MyThread(2);
+//
+//        thread.start();
+//        thread2.start();
 
-        thread.start();
-        thread2.start();
 
+        String folderPath = "D:/User/Learn";
+        File file = new File(folderPath);
+        long start = System.currentTimeMillis();
 
-//        String folderPath = "D:/User/Learn";
-//        File file = new File(folderPath);
-//        long start = System.currentTimeMillis();
 //        System.out.println("Total size: " + getFolderSize(file) / Math.pow(1024, 2) + " Mb");
-//        long duration = System.currentTimeMillis() - start;
-//        System.out.println("Elapsed: " + duration + " ms");
+        FolderSizeMeter meter = new FolderSizeMeter(file);
+        ForkJoinPool pool = new ForkJoinPool();
+        long size = pool.invoke(meter);
+        System.out.println("Total size: " + size / Math.pow(1024, 2) + " Mb");
+        long duration = System.currentTimeMillis() - start;
+        System.out.println("Elapsed: " + duration + " ms");
 
     }
     public static long getFolderSize(File folder) {
