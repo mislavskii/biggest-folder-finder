@@ -7,8 +7,10 @@ public class Main {
         System.out.println("Hello world of sizes!\n");
 
         String folderPath = "D:/User/Explore";
+        long sizeThreshold = 50 * 1024 * 1024;
+
         File file = new File(folderPath);
-        Node root = new Node(file);
+        Node root = new Node(file, sizeThreshold);
 
         long start = System.currentTimeMillis();
         System.out.println("Total size: " + getFolderSize(file));
@@ -16,7 +18,7 @@ public class Main {
         System.out.println("Elapsed: " + duration + " ms");
         System.out.println();
 
-        FolderSizeMeter meter = new FolderSizeMeter(root);
+        FolderSizeMeter meter = new FolderSizeMeter(root, sizeThreshold);
         ForkJoinPool pool = new ForkJoinPool();
         start = System.currentTimeMillis();
         pool.invoke(meter);
@@ -25,7 +27,9 @@ public class Main {
         System.out.println("Total size: " + size);
         System.out.println("that is " + SizeConverter.getHumanReadableSize(size));
         System.out.println("Elapsed: " + duration + " ms");
-        System.out.println(SizeConverter.getSizeFromHumanReadable(SizeConverter.getHumanReadableSize(size)));
+        System.out.println("Reverse engineered size: "
+                + SizeConverter.getSizeFromHumanReadable(SizeConverter.getHumanReadableSize(size)));
+        System.out.println();
         System.out.println(root);
     }
     public static long getFolderSize(File folder) {

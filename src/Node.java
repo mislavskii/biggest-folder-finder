@@ -2,13 +2,15 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class Node {
-    private File folder;
+    private final File folder;
+    private final long sizeThreshold;
     private final ArrayList<Node> subnodes;
     private long size;
     private int level;
 
-    public Node(File folder) {
+    public Node(File folder, long sizeThreshold) {
         this.folder = folder;
+        this.sizeThreshold = sizeThreshold;
         subnodes = new ArrayList<>();
     }
 
@@ -42,7 +44,9 @@ public class Node {
         String size = SizeConverter.getHumanReadableSize(getSize());
         builder.append(String.format("%s - %s%n", folder.getName(), size));
         for (Node subnode : subnodes) {
-            builder.append(subnode.toString());
+            if (subnode.getSize() > sizeThreshold) {
+                builder.append(subnode);
+            }
         }
         return builder.toString();
     }
