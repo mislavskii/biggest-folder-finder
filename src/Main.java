@@ -6,8 +6,10 @@ public class Main {
     public static void main(String[] args){
         System.out.println("Hello world of sizes!\n");
 
-        String folderPath = "D:/User/Explore";
-        long sizeThreshold = 50 * 1024 * 1024;
+        ParametersParser params = new ParametersParser(args);
+
+        String folderPath = params.getPath();
+        long sizeThreshold = params.getLimit();
 
         File file = new File(folderPath);
         Node root = new Node(file, sizeThreshold);
