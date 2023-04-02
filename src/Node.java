@@ -14,6 +14,10 @@ public class Node {
         subnodes = new ArrayList<>();
     }
 
+    public long getSizeThreshold() {
+        return sizeThreshold;
+    }
+
     public void addSubnode(Node node) {
         node.setLevel(level + 1);
         subnodes.add(node);
@@ -25,10 +29,6 @@ public class Node {
 
     public File getFolder() {
         return folder;
-    }
-
-    public ArrayList<Node> getSubnodes() {
-        return subnodes;
     }
 
     public long getSize() {

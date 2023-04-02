@@ -5,11 +5,9 @@ import java.util.concurrent.RecursiveTask;
 
 public class FolderSizeMeter extends RecursiveTask<Long> {
     private final Node node;
-    private final long sizeThreshold;
 
-    public FolderSizeMeter(Node node, long sizeThreshold) {
+    public FolderSizeMeter(Node node) {
         this.node = node;
-        this.sizeThreshold = sizeThreshold;
     }
 
     @Override
@@ -23,12 +21,14 @@ public class FolderSizeMeter extends RecursiveTask<Long> {
         long total = 0;
         List<FolderSizeMeter> subTasks = new LinkedList<>();
         File[] files = folder.listFiles();
-        for (File file : files) {
-            Node subnode = new Node(file, sizeThreshold);
-            FolderSizeMeter task = new FolderSizeMeter(subnode, sizeThreshold);
-            task.fork();  // run asynchronously
-            subTasks.add(task);
-            node.addSubnode(subnode);
+        if (files != null) {
+            for (File file : files) {
+                Node subnode = new Node(file, node.getSizeThreshold());
+                FolderSizeMeter task = new FolderSizeMeter(subnode);
+                task.fork();  // run asynchronously
+                subTasks.add(task);
+                node.addSubnode(subnode);
+            }
         }
         for (FolderSizeMeter task : subTasks) {
             total += task.join();

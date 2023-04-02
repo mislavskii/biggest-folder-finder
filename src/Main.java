@@ -18,7 +18,7 @@ public class Main {
         System.out.println("Elapsed: " + duration + " ms");
         System.out.println();
 
-        FolderSizeMeter meter = new FolderSizeMeter(root, sizeThreshold);
+        FolderSizeMeter meter = new FolderSizeMeter(root);
         ForkJoinPool pool = new ForkJoinPool();
         start = System.currentTimeMillis();
         pool.invoke(meter);
