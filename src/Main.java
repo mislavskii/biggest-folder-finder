@@ -6,6 +6,9 @@ public class Main {
     public static void main(String[] args){
         System.out.println("Hello world of sizes!\n");
 
+        if (args.length == 0) {
+            args = new String[]{"-d", "D:/User/Explore", "-l", "50Mb"};
+        }
         ParametersParser params = new ParametersParser(args);
 
         String folderPath = params.getPath();
@@ -54,3 +57,5 @@ public class Main {
 //        for (Object key : keys) {
 //            System.out.println(key + ": " + System.getProperty(key.toString()));
 //        }
+
+// D:\User\Learn\Skillbox\Java\Projects\BiggestFolderFinder\out\artifacts\BiggestFolderFinder_jar>"C:\Program Files\Java\jdk-18.0.1.1\bin\java.exe" -jar BiggestFolderFinder.jar -d D:/User/Explore -l 50Mb
