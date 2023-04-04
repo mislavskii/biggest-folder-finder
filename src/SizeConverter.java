@@ -1,7 +1,7 @@
 import java.util.Arrays;
 
 public class SizeConverter {
-    private static final String[] UNITS = {"b", "Kb", "Mb", "Gb", "Tb"};
+    static final String[] UNITS = {"b", "Kb", "Mb", "Gb", "Tb"};
 
     public static String getHumanReadableSize(long size) {
         for (int i = 0; i < UNITS.length; i++) {
