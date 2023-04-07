@@ -24,6 +24,7 @@ public class Test {
                     results.put(testInput, true);
                 } catch (IllegalArgumentException e) {
                     results.put(testInput, false);
+                    e.printStackTrace();
                 }
             }
         }
